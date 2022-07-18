@@ -7,15 +7,50 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //以下、マイグレーション処理記述②
+        let config = Realm.Configuration(
+            
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                if (oldSchemaVersion < 1) {
+                    migration.enumerateObjects(ofType: DailyDataModel.className()) {oldObject,newObject in
+                        newObject!["fake"] = ""
+                    }
+                }
+        })
+        Realm.Configuration.defaultConfiguration = config
         return true
+        //以上②
+        
+//        //以下、マイグレーション処理記述①
+//        var config = Realm.Configuration()
+//        config.migrationBlock = { migration, oldSchemaVersion in
+//            //設定していなければ oldShemeVarsion はデフォルトがゼロです
+//            if oldSchemaVersion < 1 {
+//                //保存されている　DailyDataModel 全て列挙
+//                migration.enumerateObjects(ofType: DailyDataModel.className()) { (oldObject, newObject) in
+//                    newObject!["fake"] = ""
+//                }
+//            }
+//        }
+//        //現在のRealmファイルのschemaVersionと、下記で設定したschemaVersionが違うと、マイグレーションが実行される。
+//        config.schemaVersion = 1
+//        Realm.Configuration.defaultConfiguration = config
+//
+//        return true
+//        //以上①
+        
+        
+
     }
 
     // MARK: UISceneSession Lifecycle
