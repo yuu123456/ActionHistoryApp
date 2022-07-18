@@ -51,12 +51,22 @@ class EditViewController: UIViewController {
     var bodyTempPicker: UIPickerView = UIPickerView()
     
     var dayPicker = UIDatePicker()
+    var timePicker = UIDatePicker()
     
     //日付フォーマット
     var dateFormat: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy年MM月dd日(E)"
         return dateFormatter
+    }
+    
+    //時間フォーマット
+    var timeFormat: DateFormatter {
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeZone = TimeZone.current
+        timeFormatter.locale = Locale.current
+        timeFormatter.dateFormat = "HH:mm"
+        return timeFormatter
     }
     
     
@@ -81,6 +91,14 @@ class EditViewController: UIViewController {
         dayPicker.datePickerMode = .date
         dayPicker.preferredDatePickerStyle = .wheels
         
+        timePicker.date = Date()
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .wheels
+        timePicker.timeZone = TimeZone.current
+        //時間をJapanese(２４時間表記）に変更
+        timePicker.locale = Locale.init(identifier: "ja-JP")
+        timePicker.minuteInterval = 10
+        
         //決定バー設定
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
@@ -94,6 +112,10 @@ class EditViewController: UIViewController {
         dayTextField.text = dateFormat.string(from: Date())
         dayTextField.inputView = dayPicker
         dayTextField.inputAccessoryView = toolbar
+        startTimeTextField.inputView = timePicker
+        startTimeTextField.inputAccessoryView = toolbar
+        endTimeTextField.inputView = timePicker
+        endTimeTextField.inputAccessoryView = toolbar
     }
     
     
@@ -104,8 +126,15 @@ class EditViewController: UIViewController {
         //textFieldに限らないViewとする
         view.endEditing(true)
         if dayTextField.endEditing(true) {
-              dayTextField.text = dateFormat.string(from: dayPicker.date)
+            dayTextField.text = dateFormat.string(from: dayPicker.date)
         }
+        if startTimeTextField.endEditing(true) {
+            startTimeTextField.text = timeFormat.string(from: timePicker.date)
+        }
+        if endTimeTextField.endEditing(true) {
+            endTimeTextField.text = timeFormat.string(from: timePicker.date)
+        }
+        print(timePicker.date)
     }
     
     func saveData() {
