@@ -49,9 +49,10 @@ class EditViewController: UIViewController {
     var destinationPicker: UIPickerView = UIPickerView()
     var bodyTempList: [Double] = [36.5,36.6,36.7]
     var bodyTempPicker: UIPickerView = UIPickerView()
-    
     var dayPicker = UIDatePicker()
     var timePicker = UIDatePicker()
+    var trafficCollectionList: [String] = ["車","電車","バス"]
+    var personCollectionList: [String] = ["妻","娘","息子","夫"]
     
     //日付フォーマット
     var dateFormat: DateFormatter {
@@ -116,25 +117,30 @@ class EditViewController: UIViewController {
         startTimeTextField.inputAccessoryView = toolbar
         endTimeTextField.inputView = timePicker
         endTimeTextField.inputAccessoryView = toolbar
+        
+        //DatePickerの値が変更されたとき
+        dayPicker.addTarget(self, action: #selector(pickerTarget(sender:)), for: .valueChanged)
+        timePicker.addTarget(self, action: #selector(pickerTarget(sender:)), for: .valueChanged)
+        
+        
     }
     
+    @objc func pickerTarget(sender: UIDatePicker) {
+        if sender == dayPicker {
+            dayTextField.text = dateFormat.string(from: dayPicker.date)
+        } else if sender == timePicker {
+            if startTimeTextField.isEditing {
+                startTimeTextField.text = timeFormat.string(from: timePicker.date)
+            } else if endTimeTextField.isEditing {
+                endTimeTextField.text = timeFormat.string(from: timePicker.date)
+            }
+        }
+    }
     
 
     //決定ボタン押下
     @objc func done() {
-        //destinationTextField.endEditing(true) > 汎用性低い
-        //textFieldに限らないViewとする
         view.endEditing(true)
-        if dayTextField.endEditing(true) {
-            dayTextField.text = dateFormat.string(from: dayPicker.date)
-        }
-        if startTimeTextField.endEditing(true) {
-            startTimeTextField.text = timeFormat.string(from: timePicker.date)
-        }
-        if endTimeTextField.endEditing(true) {
-            endTimeTextField.text = timeFormat.string(from: timePicker.date)
-        }
-        print(timePicker.date)
     }
     
     func saveData() {
@@ -159,13 +165,29 @@ class EditViewController: UIViewController {
 
 extension EditViewController:UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == trafficCollection {
+            return trafficCollectionList.count
+        } else if collectionView == personCollection {
+            return personCollectionList.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = trafficCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .blue
-        return cell
+        if collectionView == trafficCollection {
+            let cell = trafficCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+            let trafficLabel = cell.contentView.viewWithTag(1) as! UILabel
+            trafficLabel.text = trafficCollectionList[indexPath.row]
+            return cell
+        } else if collectionView == personCollection {
+            let cell = trafficCollection.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+            let personLabel = cell.contentView.viewWithTag(1) as! UILabel
+            personLabel.text = personCollectionList[indexPath.row]
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
     }
 }
 
