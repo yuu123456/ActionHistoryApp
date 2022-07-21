@@ -51,8 +51,10 @@ class EditViewController: UIViewController {
     var bodyTempPicker: UIPickerView = UIPickerView()
     var dayPicker = UIDatePicker()
     var timePicker = UIDatePicker()
+
     var trafficCollectionList: [String] = ["車","電車","バス"]
     var personCollectionList: [String] = ["妻","娘","息子","夫"]
+
     
     //日付フォーマット
     var dateFormat: DateFormatter {
@@ -117,12 +119,14 @@ class EditViewController: UIViewController {
         startTimeTextField.inputAccessoryView = toolbar
         endTimeTextField.inputView = timePicker
         endTimeTextField.inputAccessoryView = toolbar
+
         
         //DatePickerの値が変更されたとき
         dayPicker.addTarget(self, action: #selector(pickerTarget(sender:)), for: .valueChanged)
         timePicker.addTarget(self, action: #selector(pickerTarget(sender:)), for: .valueChanged)
         
         
+
     }
     
     @objc func pickerTarget(sender: UIDatePicker) {
@@ -141,6 +145,7 @@ class EditViewController: UIViewController {
     //決定ボタン押下
     @objc func done() {
         view.endEditing(true)
+
     }
     
     func saveData() {
