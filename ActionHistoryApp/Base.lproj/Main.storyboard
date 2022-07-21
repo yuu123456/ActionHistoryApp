@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="e76-lH-xN8">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -198,6 +199,20 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uFG-C3-4IZ">
                                             <rect key="frame" x="0.0" y="0.0" width="142" height="36"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raQ-D5-HEx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="142" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="raQ-D5-HEx" firstAttribute="top" secondItem="uFG-C3-4IZ" secondAttribute="top" id="628-ts-8y8"/>
+                                                <constraint firstAttribute="trailing" secondItem="raQ-D5-HEx" secondAttribute="trailing" id="BTA-cN-KYq"/>
+                                                <constraint firstItem="raQ-D5-HEx" firstAttribute="leading" secondItem="uFG-C3-4IZ" secondAttribute="leading" id="Nrw-BE-5wo"/>
+                                                <constraint firstAttribute="bottom" secondItem="raQ-D5-HEx" secondAttribute="bottom" id="aY6-PP-aTE"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="142" height="36"/>
                                     </collectionViewCell>
