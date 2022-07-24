@@ -10,9 +10,10 @@ import UIKit
 import RealmSwift
 
 class EditViewController: UIViewController {
-
-    
+    var day: String = ""
     var condition: String = ""
+    var bodyTemp: Double = 0.0
+
     @IBOutlet weak var dayTextField: UITextField!
     @IBOutlet weak var bodyTempTextField: UITextField!
     
@@ -27,7 +28,6 @@ class EditViewController: UIViewController {
             print(condition)
                 default:
                     print("存在しません")
-            
         }
     }
     
@@ -39,6 +39,12 @@ class EditViewController: UIViewController {
     @IBOutlet weak var trafficCollection: UICollectionView!
     @IBOutlet weak var personCollection: UICollectionView!
     
+    @IBAction func RegisterButton(_ sender: UIButton) {
+        saveData()
+        let parentVC = self.presentingViewController as! HomeViewController
+        parentVC.updateView()
+        self.dismiss(animated: true)
+    }
     
     
     var dailyDataModel = DailyDataModel()
@@ -72,11 +78,15 @@ class EditViewController: UIViewController {
         return timeFormatter
     }
     
+    //HomeVC > EditVCに遷移時、データを表示するためのメソッド。データを受け入れる準備
+    func configure(dailyData: DailyDataModel) {
+        day = dailyData.day
+        bodyTemp = dailyData.bodyTemp
+        condition = dailyData.condition
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         trafficCollection.delegate = self
         trafficCollection.dataSource = self
         personCollection.delegate = self
@@ -145,23 +155,20 @@ class EditViewController: UIViewController {
     //決定ボタン押下
     @objc func done() {
         view.endEditing(true)
-
     }
     
+    //realmに保存する処理
     func saveData() {
-        
-        
         let realm = try! Realm()
         try! realm.write {
-//            let date = Date()
-//            let formatter = DateFormatter()
-//            formatter.dateStyle = .full
-//            formatter.timeStyle = .short
-//            dailyDataModel.day = formatter.string(from: date)
-//            dailyDataModel.bodyTemp = Double(bodyTempTextField.text!)!
-//            dailyDataModel.condition = condition
-//            mainDataModel.destination = destinationTextField.text!
-//            mainDataModel.traffic =
+            dailyDataModel.day = dayTextField.text!
+            dailyDataModel.bodyTemp = Double(bodyTempTextField.text!)!
+            dailyDataModel.condition = condition
+            realm.add(dailyDataModel)
+            
+            mainDataModel.destination = destinationTextField.text!
+//            mainDataModel.traffic
+            realm.add(mainDataModel)
             
         }
     }
