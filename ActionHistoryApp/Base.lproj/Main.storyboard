@@ -102,7 +102,7 @@
         <!--Edit View Controller-->
         <scene sceneID="B3T-gN-erL">
             <objects>
-                <viewController id="rcA-6h-5ff" customClass="EditViewController" customModule="ActionHistoryApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rcA-6h-5ff" customClass="EditViewController" customModule="ActionHistoryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vvi-9Y-hrZ">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,6 +247,9 @@
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="登録"/>
+                                <connections>
+                                    <action selector="RegisterButton:" destination="rcA-6h-5ff" eventType="touchUpInside" id="rYS-rk-Hjp"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="℃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iH-qw-vqK">
                                 <rect key="frame" x="189" y="149.66666666666666" width="20" height="21"/>

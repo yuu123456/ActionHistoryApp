@@ -6,11 +6,20 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LogTableViewCell: UITableViewCell {
-    @IBOutlet weak var TimeDestinationCell: UILabel!
-    @IBOutlet weak var TrafficCell: UILabel!
-    @IBOutlet weak var PersonCell: UILabel!
+    @IBOutlet weak var TimeDestinationLabel: UILabel!
+    @IBOutlet weak var TrafficLabel: UILabel!
+    @IBOutlet weak var PersonLabel: UILabel!
+    
+    //不要
+//    var dailyDataList: [DailyDataModel] = []
+//    func setDailyDataModel() {
+//        let realm = try! Realm()
+//        let result = realm.objects(DailyDataModel.self)
+//        dailyDataList = Array(result)
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +30,27 @@ class LogTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        
     }
     
 }
+
+//extension LogTableViewCell: UITableViewDelegate {
+//
+//}
+//
+//extension LogTableViewCell: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return dailyDataList.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
+//        let dailyDataModel: DailyDataModel = dailyDataList[indexPath.row]
+//        cell.TimeDestinationLabel.text? = dailyDataModel.day
+//
+//        return cell
+//    }
+//
+//
+//}

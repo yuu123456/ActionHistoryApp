@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,9 +42,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="PersonCell" destination="haA-FE-TjQ" id="J57-6F-Dgs"/>
-                <outlet property="TimeDestinationCell" destination="B6m-fz-tNJ" id="oMj-5n-dm0"/>
-                <outlet property="TrafficCell" destination="K8I-Yf-0bq" id="abd-ZX-t08"/>
+                <outlet property="PersonLabel" destination="haA-FE-TjQ" id="J57-6F-Dgs"/>
+                <outlet property="TimeDestinationLabel" destination="B6m-fz-tNJ" id="oMj-5n-dm0"/>
+                <outlet property="TrafficLabel" destination="K8I-Yf-0bq" id="abd-ZX-t08"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="113.83928571428571"/>
         </tableViewCell>
