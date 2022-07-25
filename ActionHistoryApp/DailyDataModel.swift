@@ -13,5 +13,10 @@ class DailyDataModel: Object {
     @objc dynamic var day: String = ""
     @objc dynamic var bodyTemp: Double = 0.0
     @objc dynamic var condition: String = ""
-    @objc dynamic var fake: String = ""
+
+    @objc dynamic var destination: String = "会社"
+    @objc dynamic var startTime: Date = Date()
+    @objc dynamic var endTime: Date = Date()
+    @objc dynamic var traffic: String = "車"
+    @objc dynamic var person: String = "母"
 }
