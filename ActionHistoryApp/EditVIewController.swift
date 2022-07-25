@@ -48,7 +48,7 @@ class EditViewController: UIViewController {
     
     
     var dailyDataModel = DailyDataModel()
-    var mainDataModel = MainDataModel()
+//    var mainDataModel = MainDataModel()
     
     //ピッカー及び配列の定義
     var destinationList: [String] = ["自宅","会社"]
@@ -166,9 +166,9 @@ class EditViewController: UIViewController {
             dailyDataModel.condition = condition
             realm.add(dailyDataModel)
             
-            mainDataModel.destination = destinationTextField.text!
+            dailyDataModel.destination = destinationTextField.text!
 //            mainDataModel.traffic
-            realm.add(mainDataModel)
+            realm.add(dailyDataModel)
             
         }
     }

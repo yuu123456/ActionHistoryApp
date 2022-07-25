@@ -13,10 +13,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var logAddButton: UIButton!
     @IBOutlet weak var logTableView: UITableView!
     
-    var mainDataList: [MainDataModel] = []
+//    var mainDataList: [MainDataModel] = []
     var dailyDataList: [DailyDataModel] = []
     
-    var sectionTitle: NSArray = []
+//    var sectionTitleList: NSArray = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +32,11 @@ class HomeViewController: UIViewController {
     func setDailyData() {
         let realm = try! Realm()
         let resultdaily = realm.objects(DailyDataModel.self)
-        let resultmain = realm.objects(MainDataModel.self)
+//        let resultmain = realm.objects(MainDataModel.self)
         dailyDataList = Array(resultdaily)
-        mainDataList = Array(resultmain)
+//        mainDataList = Array(resultmain)
         //セクションタイトルに値を反映
-        sectionTitle = dailyDataList.map({$0.day}) as NSArray
+//        sectionTitleList = dailyDataList.map({$0.day}) as NSArray
     }
     
     func updateView() {
@@ -48,26 +48,28 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainDataList.count
+        return dailyDataList[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //カスタムセルをTableViewに表示
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
-
-        let mainDataModel: MainDataModel = mainDataList[indexPath.row]
-        cell.TimeDestinationLabel.text? = mainDataModel.destination
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LogTableViewCell") as! LogTableViewCell
+        cell.TimeDestinationLabel.text? = dailyDataList[indexPath.section][indexPath.row]
+//        let dailyDataModel: DailyDataModel = dailyDataList[indexPath.row]
+//        cell.TimeDestinationLabel.text? = dailyDataModel.destination
         
         return cell
     }
     
     //セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitle.count
+        return dailyDataList.count
     }
     //セクションのヘッダー
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitle[section] as? String
+        return String(dailyDataList[section].day)
     }
 }
 
@@ -89,14 +91,18 @@ extension HomeViewController: UITableViewDelegate {
     //スワイプでデータを削除する
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let targetDailyData = dailyDataList[indexPath.row]
-        let targetMainData = mainDataList[indexPath.row]
+//        let targetMainData = mainDataList[indexPath.row]
         let realm = try! Realm()
         try! realm.write {
             realm.delete(targetDailyData)
-            realm.delete(targetMainData)
+//            realm.delete(targetMainData)
         }
         dailyDataList.remove(at: indexPath.row)
-        mainDataList.remove(at: indexPath.row)
+//        mainDataList.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        //セクション削除？
+//        let indexSet = NSMutableIndexSet()
+//        indexSet.add(indexPath.section)
+//        tableView.deleteSections(indexSet as IndexSet, with: .automatic)
     }
 }
