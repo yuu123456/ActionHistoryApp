@@ -35,6 +35,9 @@ class HomeViewController: UIViewController {
         let resultmain = realm.objects(MainDataModel.self)
         dailyDataList = Array(resultdaily)
         mainDataList = Array(resultmain)
+        print("dailyDataListの中身は\(dailyDataList)")
+//        print("mainDataListの中身は\(mainDataList)")
+        
         //セクションタイトルに値を反映
         sectionTitle = dailyDataList.map({$0.day}) as NSArray
     }
@@ -48,22 +51,23 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainDataList.count
+        let targetSection = dailyDataList[section]
+        return targetSection.mainData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //カスタムセルをTableViewに表示
         let cell = tableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
 
-        let mainDataModel: MainDataModel = mainDataList[indexPath.row]
-        cell.TimeDestinationLabel.text? = mainDataModel.destination
-        
+        let dailyDataModel: DailyDataModel = dailyDataList[indexPath.row]
+        cell.TimeDestinationLabel.text? = dailyDataModel.day
+
         return cell
     }
     
     //セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitle.count
+        return dailyDataList.count
     }
     //セクションのヘッダー
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

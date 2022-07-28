@@ -164,10 +164,10 @@ class EditViewController: UIViewController {
             dailyDataModel.day = dayTextField.text!
             dailyDataModel.bodyTemp = Double(bodyTempTextField.text!)!
             dailyDataModel.condition = condition
+//            dailyDataModel.mainData.destination = "aaa"
             realm.add(dailyDataModel)
             
             mainDataModel.destination = destinationTextField.text!
-//            mainDataModel.traffic
             realm.add(mainDataModel)
             
         }
