@@ -11,8 +11,8 @@ import RealmSwift
 
 class EditViewController: UIViewController {
     var day: String = ""
-    var condition: String = ""
-    var bodyTemp: Double = 0.0
+    var condition: String = "体調良好"
+    var bodyTemp: Double = 36.5
 
     @IBOutlet weak var dayTextField: UITextField!
     @IBOutlet weak var bodyTempTextField: UITextField!
@@ -160,18 +160,57 @@ class EditViewController: UIViewController {
     //realmに保存する処理
     func saveData() {
         let realm = try! Realm()
+        
+        let result = realm.objects(DailyDataModel.self)
+        
+        let dictinary: [String: Any] =
+        ["day": dayTextField.text!,
+         "bodyTemp": Double(bodyTempTextField.text!)!,
+         "condition": condition,
+         "mainData": [["destination": destinationTextField.text!,
+                       "startTime": Date(),
+                       "endTime": Date(),
+                       "traffic": "",
+                       "person": ""]]
+         ]
+        let mainDatas = MainDataModel(value: ["destination": destinationTextField.text!,
+                                              "startTime": Date(),
+                                              "endTime": Date(),
+                                              "traffic": "",
+                                              "person": ""])
+        let dailyDataModel = DailyDataModel(value: dictinary)
         try! realm.write {
-            dailyDataModel.day = dayTextField.text!
-            dailyDataModel.bodyTemp = Double(bodyTempTextField.text!)!
-            dailyDataModel.condition = condition
+            for dailyDataModel in result {
+                dailyDataModel.mainData.append(mainDatas)
+            }
+            
             realm.add(dailyDataModel)
-            
-            mainDataModel.destination = destinationTextField.text!
-//            mainDataModel.traffic
-            realm.add(mainDataModel)
-            
+            print("aaadailyDataModelの中身は：\(dailyDataModel)")
         }
     }
+    
+//    func saveData() {
+//        let realm = try! Realm()
+//
+//        let result = realm.objects(DailyDataModel.self)
+//
+//        try! realm.write {
+//
+//            let dictinary: [String: Any] =
+//            ["day": dayTextField.text!,
+//             "bodyTemp": Double(bodyTempTextField.text!)!,
+//             "condition": condition,
+//             "mainData": [["destination": destinationTextField.text!,
+//                           "startTime": Date(),
+//                           "endTime": Date(),
+//                           "traffic": "",
+//                           "person": ""]]
+//             ]
+//            let dailyDataModel = DailyDataModel(value: dictinary)
+//            realm.add(dailyDataModel)
+//            print("aaadailyDataModelの中身は：\(dailyDataModel)")
+//        }
+//    }
     
 }
 
