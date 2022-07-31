@@ -13,6 +13,5 @@ class DailyDataModel: Object {
     @objc dynamic var day: String = ""
     @objc dynamic var bodyTemp: Double = 0.0
     @objc dynamic var condition: String = ""
-//    var mainData: [MainDataModel] = []
     let mainData = List<MainDataModel>()
 }

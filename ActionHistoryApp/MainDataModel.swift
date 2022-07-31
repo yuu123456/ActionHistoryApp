@@ -15,4 +15,5 @@ class MainDataModel: Object {
     @objc dynamic var endTime: Date = Date()
     @objc dynamic var traffic: String = "車"
     @objc dynamic var person: String = "母"
+//    let dailyDataModel = List<DailyDataModel>()
 }
